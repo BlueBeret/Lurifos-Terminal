@@ -39,8 +39,9 @@ while 1:
         error(e)
         sleep(15)
         continue
+lasttimeerror = False
+
 while 1:
-    lasttimeerror = False
     try:
         if lasttimeerror:
             info("Reconnecting to Discord...")
@@ -81,6 +82,7 @@ while 1:
         
     except Exception as e:
         error(e)
+        lasttimeerror = True
 
     finally:
         # sleep 15 seconds
