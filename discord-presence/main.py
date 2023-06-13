@@ -3,16 +3,42 @@ from time import sleep
 from config import APP_ID
 import json
 import os
+
+def debug(*args, **kwargs):
+    print("[DEBUG]", end=" ")
+    print(*args, **kwargs)
+
+def error(*args, **kwargs):
+    print("[ERROR]", end=" ")
+    print(*args, **kwargs)
+
+def info(*args, **kwargs):
+    print("[INFO]", end=" ")
+    print(*args, **kwargs)
+
+info("Starting Discord Presence...")
+
 RPC = Presence(APP_ID)
 
 # make /tmp/lurifosterm directory if not exists
 if not os.path.exists("/tmp/lurifosterm"):
     os.makedirs("/tmp/lurifosterm")
+    info("Created /tmp/lurifosterm directory")
+else:
+    info("/tmp/lurifosterm directory already exists")
 
 
+info("Connecting to Discord...")
 # main loop
-RPC.connect()
-
+while 1:
+    try:
+        RPC.connect()
+        info("Connected to Discord")
+        break
+    except Exception as e:
+        error(e)
+        sleep(5)
+        continue
 while 1:
     try:
         # check if file /tmp/lurifosterm/config.json exists
@@ -27,7 +53,7 @@ while 1:
             details = "Playing Valorant"
             state = "In a match"
             large_text = "Lurifos's Terminal"
-            small_image = "Valorant"
+            small_image = "valorant"
             small_text = "Killjoy#SIMP"
         
         buttons = [
@@ -46,7 +72,7 @@ while 1:
                 )
         
     except Exception as e:
-        print(e)
+        error(e)
         RPC.connect()
 
     finally:
