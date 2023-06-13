@@ -37,10 +37,16 @@ while 1:
         break
     except Exception as e:
         error(e)
-        sleep(5)
+        sleep(15)
         continue
 while 1:
+    lasttimeerror = False
     try:
+        if lasttimeerror:
+            info("Reconnecting to Discord...")
+            RPC.connect()
+            info("Connected to Discord")
+
         # check if file /tmp/lurifosterm/config.json exists
         if os.path.isfile("/tmp/lurifosterm/config.json"):
             data = json.load(open("/tmp/lurifosterm/config.json"))
@@ -70,10 +76,11 @@ while 1:
                 buttons=buttons,
                 start=1686673732
                 )
+        info("Updated Discord Presence")
+        lasttimeerror = False
         
     except Exception as e:
         error(e)
-        RPC.connect()
 
     finally:
         # sleep 15 seconds
