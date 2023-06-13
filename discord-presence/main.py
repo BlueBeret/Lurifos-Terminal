@@ -5,6 +5,11 @@ import json
 import os
 RPC = Presence(APP_ID)
 
+# make /tmp/lurifosterm directory if not exists
+if not os.path.exists("/tmp/lurifosterm"):
+    os.makedirs("/tmp/lurifosterm")
+
+
 # main loop
 RPC.connect()
 
