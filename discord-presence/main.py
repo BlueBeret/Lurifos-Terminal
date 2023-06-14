@@ -18,8 +18,7 @@ def info(*args, **kwargs):
 
 info("Starting Discord Presence...")
 
-RPC = Presence(APP_ID)
-
+debug(os.environ.get("XDG_RUNTIME_DIR"))
 # make /tmp/lurifosterm directory if not exists
 if not os.path.exists("/tmp/lurifosterm"):
     os.makedirs("/tmp/lurifosterm")
@@ -32,6 +31,7 @@ info("Connecting to Discord...")
 # main loop
 while 1:
     try:
+        RPC = Presence(APP_ID)
         RPC.connect()
         info("Connected to Discord")
         break
@@ -57,11 +57,17 @@ while 1:
             small_image = data.get("small_image")
             small_text = data.get("small_text")
         else:
-            details = "Playing Valorant"
-            state = "In a match"
+            # details = "Playing Valorant"
+            # state = "In a match"
+            # large_text = "Lurifos's Terminal"
+            # small_image = "valorant"
+            # small_text = "Killjoy#SIMP"
+            details = "Trying sudo userdel -r lurifos"
+            state = "depressed"
             large_text = "Lurifos's Terminal"
-            small_image = "valorant"
-            small_text = "Killjoy#SIMP"
+            small_image = "depressed"
+            small_text = "depressed"
+            
         
         buttons = [
              {"label": "whoami", "url": "https://lurifos.dev"}]
