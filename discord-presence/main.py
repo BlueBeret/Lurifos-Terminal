@@ -43,6 +43,8 @@ while 1:
         continue
 lasttimeerror = False
 
+starttime = int(time.time())
+
 while 1:
     try:
         if lasttimeerror:
@@ -50,28 +52,31 @@ while 1:
             RPC.connect()
             info("Connected to Discord")
 
+
+        # details = "Playing Valorant"
+        # state = "In a match"
+        # large_text = "Lurifos's Terminal"
+        # small_image = "valorant"
+        # small_text = "Killjoy#SIMP"
+        details = "Idling"
+        state = "</>"
+        large_image = "default"
+        large_text = "Lurifos's Terminal"
+        small_image = "depressed"
+        small_text = "depressed"
+            
+
+
         # check if file /tmp/lurifosterm/config.json exists
         if os.path.isfile("/tmp/lurifosterm/config.json"):
             data = json.load(open("/tmp/lurifosterm/config.json"))
-            details = data.get("details")
-            state = data.get("state")
-            large_image = data.get("large_image")
-            large_text = data.get("large_text")
-            small_image = data.get("small_image")
-            small_text = data.get("small_text")
-        else:
-            # details = "Playing Valorant"
-            # state = "In a match"
-            # large_text = "Lurifos's Terminal"
-            # small_image = "valorant"
-            # small_text = "Killjoy#SIMP"
-            details = "Trying sudo userdel -r lurifos"
-            state = "depressed"
-            large_image = "default"
-            large_text = "Lurifos's Terminal"
-            small_image = "depressed"
-            small_text = "depressed"
-            
+            if int(time.time()) - data.get("last_updated") < 600:
+                details = data.get("details", details)
+                state = data.get("state", state)
+                large_image = data.get("large_image", large_image)
+                large_text = data.get("large_text", large_text)
+                small_image = data.get("small_image", small_image)
+                small_text = data.get("small_text", small_text)
         
         buttons = [
              {"label": "whoami", "url": "https://lurifos.dev"}]
@@ -85,7 +90,7 @@ while 1:
                 small_image=small_image,
                 small_text=small_text,
                 buttons=buttons,
-                start= int(time.time())
+                start= starttime
                 )
         info("Updated Discord Presence")
         lasttimeerror = False

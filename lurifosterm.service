@@ -1,0 +1,15 @@
+[Unit]
+Description=Lurifos Terminal Discord Presence
+After=multi-user.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+ExecStart=/home/geoseismal/Personal/Lurifos-Terminal/venv/bin/python -u /home/geoseismal/Personal/Lurifos-Terminal/discord-presence/main.py
+Type=simple
+WorkingDirectory=/home/geoseismal/Personal/Lurifos-Terminal/discord-presence/
+Restart=on-failure
+User=geoseismal
+Group=geoseismal
+Environment=XDG_RUNTIME_DIR=/run/user/1000
