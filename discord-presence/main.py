@@ -1,3 +1,4 @@
+import time
 from pypresence import Presence
 from time import sleep
 from config import APP_ID
@@ -29,9 +30,10 @@ else:
 
 info("Connecting to Discord...")
 # main loop
+RPC = Presence(APP_ID)
+
 while 1:
     try:
-        RPC = Presence(APP_ID)
         RPC.connect()
         info("Connected to Discord")
         break
@@ -53,6 +55,7 @@ while 1:
             data = json.load(open("/tmp/lurifosterm/config.json"))
             details = data.get("details")
             state = data.get("state")
+            large_image = data.get("large_image")
             large_text = data.get("large_text")
             small_image = data.get("small_image")
             small_text = data.get("small_text")
@@ -64,6 +67,7 @@ while 1:
             # small_text = "Killjoy#SIMP"
             details = "Trying sudo userdel -r lurifos"
             state = "depressed"
+            large_image = "default"
             large_text = "Lurifos's Terminal"
             small_image = "depressed"
             small_text = "depressed"
@@ -76,12 +80,12 @@ while 1:
         RPC.update(
                 details=details,
                 state=state,
-                large_image="default",
+                large_image= large_image,
                 large_text=large_text,
                 small_image=small_image,
                 small_text=small_text,
                 buttons=buttons,
-                start=1686673732
+                start= int(time.time())
                 )
         info("Updated Discord Presence")
         lasttimeerror = False
