@@ -3,6 +3,7 @@
   "reportUnknownModuleTypes": true,
   "python.pythonPath": "./venv/bin/python",
   "python.analysis.venvPaths": ["./venv"],
-  "python.analysis.autoSearchPaths": false
+  "python.analysis.autoSearchPaths": false,
+  "reportUnboundVariables": false
 }
 

@@ -4,7 +4,7 @@ from time import sleep
 from config import APP_ID
 import json
 import os
-
+# pyright: reportUnboundVariable=false
 def debug(*args, **kwargs):
     print("[DEBUG]", end=" ")
     print(*args, **kwargs)
@@ -29,11 +29,10 @@ else:
 
 
 info("Connecting to Discord...")
-# main loop
-RPC = Presence(APP_ID)
 
 while 1:
     try:
+        RPC = Presence(APP_ID)
         RPC.connect()
         info("Connected to Discord")
         break
