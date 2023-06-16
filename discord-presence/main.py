@@ -69,14 +69,17 @@ while 1:
         # check if file /tmp/lurifosterm/config.json exists
         if os.path.isfile("/tmp/lurifosterm/config.json"):
             data = json.load(open("/tmp/lurifosterm/config.json"))
-            if int(time.time()) - data.get("last_updated") < 600:
+            if int(time.time()) - data.get("last_updated") < 300:
                 details = data.get("details", details)
                 state = data.get("state", state)
                 large_image = data.get("large_image", large_image)
                 large_text = data.get("large_text", large_text)
                 small_image = data.get("small_image", small_image)
                 small_text = data.get("small_text", small_text)
-        
+
+                print(details, state, large_image, large_text, small_image, small_text)
+            else:
+                info("File /tmp/lurifosterm/config.json is outdated")        
         buttons = [
              {"label": "whoami", "url": "https://lurifos.dev"}]
 
@@ -100,6 +103,6 @@ while 1:
 
     finally:
         # sleep 15 seconds
-        sleep(15)
+        sleep(2)
 
 
